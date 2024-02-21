@@ -1,9 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
 import { AsyncPipe, JsonPipe } from '@angular/common';
-import { User } from '../models';
-import { Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-user-profile',
@@ -14,14 +13,15 @@ import { Observable } from 'rxjs';
     <p>User - {{ user$ | async| json}}</p>
   `
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent {
   #activatedRoute = inject(ActivatedRoute);
+  id$ = this.#activatedRoute.params.pipe(
+    map(params => params['id'])
+  );
+
   #user = inject(UserService);
 
-  user$!: Observable<User>;
-  
-  ngOnInit() {
-    const userId = this.#activatedRoute.snapshot.params['id'];
-    this.user$ = this.#user.profile(userId);
-  }
+  user$ = this.id$.pipe(
+    switchMap(id => this.#user.profile(id))
+  );
 }
