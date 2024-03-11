@@ -64,3 +64,18 @@ main {
     }
   }
 }
+.toggle-button {
+  display: block;
+  box-sizing: border-box;
+  text-align: center;
+  text-decoration: none;
+  padding: 10px 20px;
+  width: 100%;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  &:hover {
+    background: #ccc;
+  }
+}
