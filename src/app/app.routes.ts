@@ -3,7 +3,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 
 export const routes: Routes = [
   {
-    path: ':id',
+    path: ':userId',
     component: UserProfileComponent
   }
 ];

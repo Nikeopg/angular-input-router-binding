@@ -9,6 +9,8 @@ import { User } from './models';
 export class UserService {
   #http = inject(HttpClient);
 
+  users$ = this.#http.get<User[]>(`https://jsonplaceholder.typicode.com/users`);
+
   profile(id: string | number) {
     return this.#http.get<User>(`https://jsonplaceholder.typicode.com/users/${id}`);
   }
