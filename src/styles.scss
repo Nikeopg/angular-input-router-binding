@@ -64,7 +64,7 @@ main {
     }
   }
 }
-.toggle-button {
+.toggle-button, .demo-button {
   display: block;
   box-sizing: border-box;
   text-align: center;
@@ -78,6 +78,9 @@ main {
   &:hover {
     background: #ccc;
   }
+}
+.demo-button {
+  margin-top: 10px;
 }
 h4 span {
   color: red
