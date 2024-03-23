@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../user.service';
+import { Component, inject, input } from '@angular/core'; 
+import { toObservable } from '@angular/core/rxjs-interop';
 import { AsyncPipe } from '@angular/common';
-import { map, switchMap } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { UserService } from '../user.service';
 import { DataTableComponent } from '../data-table/data-table.component';
 
 @Component({
@@ -19,14 +19,11 @@ import { DataTableComponent } from '../data-table/data-table.component';
   `
 })
 export class UserProfileComponent {
-  #activatedRoute = inject(ActivatedRoute);
   #user = inject(UserService);
 
-  userId$ = this.#activatedRoute.params.pipe(
-    map(params => params['userId'])
-  );
+  userId = input.required<string>();
 
-  profile$ = this.userId$.pipe(
+  profile$ = toObservable(this.userId).pipe(
     switchMap(id => this.#user.profile(id))
   );
 }
