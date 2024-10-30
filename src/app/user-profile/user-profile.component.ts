@@ -24,6 +24,6 @@ export class UserProfileComponent {
   userId = input.required<string>();
 
   profile$ = toObservable(this.userId).pipe(
-    switchMap(id => this.#user.profile(id))
+    switchMap( id => this.#user.profile(id))
   );
 }
